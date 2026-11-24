@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed | BhangarSetu</title>
+  <style>
+    :root {
+      --primary: #15803d;
+      --primary-dark: #166534;
+      --accent: #f0fdf4;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f8fafc; color: var(--text); line-height: 1.5; padding: 20px 16px; }
+    .container { max-width: 500px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 24px 18px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .check-circle { width: 64px; height: 64px; background: var(--accent); color: var(--primary); border: 2px solid #86efac; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 14px; }
+    h1 { font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 6px; }
+    .sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
+    .summary-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: left; font-size: 0.9rem; margin-bottom: 18px; }
+    .summary-box p { margin-bottom: 8px; }
+    .summary-box p:last-child { margin-bottom: 0; }
+    .btn-whatsapp { display: block; width: 100%; background: #22c55e; color: #fff; text-decoration: none; padding: 14px; font-size: 1rem; font-weight: 700; border-radius: 10px; margin-bottom: 12px; }
+    .btn-back { display: inline-block; color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <div class="check-circle">✓</div>
+      <h1>Pickup Request Ready!</h1>
+      <p class="sub">Tap the green button below to send your details to our Thane dispatch team on WhatsApp.</p>
+
+      <div class="summary-box" id="booking-details">
+        <p><strong>Reference ID:</strong> <span id="ref-id">BS-101</span></p>
+        <p><strong>Name:</strong> <span id="show-name">-</span></p>
+        <p><strong>Area:</strong> <span id="show-area">-</span></p>
+        <p><strong>Address:</strong> <span id="show-address">-</span></p>
+        <p><strong>Pickup Slot:</strong> <span id="show-slot">-</span></p>
+        <p><strong>Estimated Payout:</strong> ₹<span id="show-amt">0</span></p>
+      </div>
+
+      <a id="wa-direct-btn" href="#" class="btn-whatsapp">📲 Send Request on WhatsApp</a>
+      <a href="index.html" class="btn-back">← Edit Details or Book Another Pickup</a>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "918419932031"; // REPLACE WITH YOUR 10-DIGIT NUMBER AFTER 91
+
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name") || "Customer";
+    const area = params.get("area") || "Thane";
+    const address = params.get("address") || "Not provided";
+    const slot = params.get("slot") || "Anytime";
+    const items = params.get("items") || "Mixed Scrap";
+    const amt = params.get("amt") || "0";
+    const refId = "BS-" + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById("ref-id").innerText = refId;
+    document.getElementById("show-name").innerText = name;
+    document.getElementById("show-area").innerText = area;
+    document.getElementById("show-address").innerText = address;
+    document.getElementById("show-slot").innerText = slot;
+    document.getElementById("show-amt").innerText = amt;
+
+    const msg = `*New BhangarSetu Pickup (${refId})*\n\n` +
+                `*Name:* ${name}\n` +
+                `*Area:* ${area}\n` +
+                `*Address:* ${address}\n` +
+                `*Slot:* ${slot}\n\n` +
+                `*Items:*\n${items}\n` +
+                `*Est. Payout:* ₹${amt}`;
+
+    const waUrl = `https://wa.me{WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    document.getElementById("wa-direct-btn").href = waUrl;
+  </script>
+</body>
+</html>
