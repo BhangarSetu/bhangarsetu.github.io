@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BhangarSetu | Doorstep Scrap Pickup in Thane</title>
+  <style>
+    :root {
+      --primary: #15803d;
+      --primary-dark: #166534;
+      --accent: #f0fdf4;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f8fafc; color: var(--text); line-height: 1.5; padding-bottom: 40px; }
+    header { background: var(--primary); color: #fff; padding: 20px 16px; text-align: center; }
+    header h1 { font-size: 1.6rem; letter-spacing: -0.5px; }
+    header p { font-size: 0.9rem; opacity: 0.92; margin-top: 4px; }
+    .container { max-width: 540px; margin: 0 auto; padding: 16px; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .card h2 { font-size: 1.15rem; margin-bottom: 12px; color: var(--primary-dark); }
+    .badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 16px; }
+    .badge { background: var(--accent); border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 6px; font-size: 0.78rem; font-weight: 600; color: var(--primary-dark); }
+    .rate-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .rate-row:last-child { border-bottom: none; }
+    .rate-info strong { display: block; font-size: 0.95rem; }
+    .rate-info span { font-size: 0.8rem; color: var(--muted); }
+    .qty-box { display: flex; align-items: center; gap: 6px; }
+    .qty-box input { width: 64px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 0.95rem; }
+    .total-bar { background: var(--accent); border: 1px dashed var(--primary); border-radius: 8px; padding: 12px; margin-top: 12px; display: flex; justify-content: space-between; font-weight: 700; color: var(--primary-dark); }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; background: #fff; }
+    .btn-whatsapp { width: 100%; background: #22c55e; color: #fff; border: none; padding: 14px; font-size: 1rem; font-weight: 700; border-radius: 10px; cursor: pointer; margin-top: 6px; }
+    .btn-whatsapp:hover { background: #16a34a; }
+    footer { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>BhangarSetu</h1>
+    <p>Doorstep Scrap Pickup in Thane • Digital Scale • Instant UPI</p>
+  </header>
+
+  <div class="container">
+    <div class="badges">
+      <div class="badge">⚖️ 100% Digital Weighing</div>
+      <div class="badge">⚡ Instant UPI / Cash</div>
+      <div class="badge">🚚 Free Doorstep Pickup</div>
+    </div>
+
+    <div class="card">
+      <h2>1. Today's Scrap Rates & Estimator</h2>
+      <div id="rate-list">
+        <div class="rate-row">
+          <div class="rate-info"><strong>Old Newspapers (Raddi)</strong><span>₹13 / kg</span></div>
+          <div class="qty-box"><input type="number" min="0" placeholder="0" data-name="Newspaper" data-rate="13" oninput="calcTotal()"> kg</div>
+        </div>
+        <div class="rate-row">
+          <div class="rate-info"><strong>Cardboard / Cartons</strong><span>₹9 / kg</span></div>
+          <div class="qty-box"><input type="number" min="0" placeholder="0" data-name="Cardboard" data-rate="9" oninput="calcTotal()"> kg</div>
+        </div>
+        <div class="rate-row">
+          <div class="rate-info"><strong>Books & Office Paper</strong><span>₹11 / kg</span></div>
+          <div class="qty-box"><input type="number" min="0" placeholder="0" data-name="Books/Paper" data-rate="11" oninput="calcTotal()"> kg</div>
+        </div>
+        <div class="rate-row">
+          <div class="rate-info"><strong>Mixed Household Plastic</strong><span>₹10 / kg</span></div>
+          <div class="qty-box"><input type="number" min="0" placeholder="0" data-name="Mixed Plastic" data-rate="10" oninput="calcTotal()"> kg</div>
+        </div>
+        <div class="rate-row">
+          <div class="rate-info"><strong>PET Water/Soda Bottles</strong><span>₹14 / kg</span></div>
+          <div class="qty-box"><input type="number" min="0" placeholder="0" data-name="PET Bottles" data-rate="14" oninput="calcTotal()"> kg</div>
+        </div>
+      </div>
+      <div class="total-bar">
+        <span>Estimated Payout (<span id="total-kg">0</span> kg):</span>
+        <span>₹<span id="total-amt">0</span></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Schedule Free Pickup in Thane</h2>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="cust-name" placeholder="e.g., Rahul Sharma" required />
+      </div>
+      <div class="form-group">
+        <label>Thane Locality</label>
+        <select id="cust-area">
+          <option value="Ghodbunder Road">Ghodbunder Road (Patlipada / Kasarvadavali)</option>
+          <option value="Majiwada / Balkum">Majiwada / Balkum</option>
+          <option value="Pokhran Road / Vasant Vihar">Pokhran Road / Vasant Vihar</option>
+          <option value="Naupada / Panchpakhadi">Naupada / Panchpakhadi</option>
+          <option value="Hiranandani Estate / Meadows">Hiranandani Estate / Meadows</option>
+          <option value="Other Thane Area">Other Area in Thane</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Building / Society Name & Flat No.</label>
+        <input type="text" id="cust-address" placeholder="e.g., B-402, Rosa Bella, Ghodbunder Rd" required />
+      </div>
+      <div class="form-group">
+        <label>Preferred Pickup Slot</label>
+        <select id="cust-slot">
+          <option value="Morning (9 AM - 12 PM)">Morning (9:00 AM – 12:00 PM)</option>
+          <option value="Afternoon (12 PM - 4 PM)">Afternoon (12:00 PM – 4:00 PM)</option>
+          <option value="Evening (4 PM - 7 PM)">Evening (4:00 PM – 7:00 PM)</option>
+        </select>
+      </div>
+      <button class="btn-whatsapp" onclick="bookWhatsApp()">📲 Book Pickup via WhatsApp</button>
+    </div>
+
+    <footer>
+      BhangarSetu • Registered MSME Service in Thane, Maharashtra<br/>
+      Minimum pickup quantity: 10 kg • Final weight measured on digital scale
+    </footer>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "918419932031"; // REPLACE WITH YOUR 10-DIGIT NUMBER AFTER 91
+
+    function calcTotal() {
+      let totalKg = 0, totalAmt = 0;
+      document.querySelectorAll('#rate-list input').forEach(input => {
+        const kg = parseFloat(input.value) || 0;
+        const rate = parseFloat(input.dataset.rate);
+        totalKg += kg;
+        totalAmt += kg * rate;
+      });
+      document.getElementById('total-kg').innerText = totalKg;
+      document.getElementById('total-amt').innerText = Math.round(totalAmt);
+    }
+
+    function bookWhatsApp() {
+      const name = document.getElementById('cust-name').value.trim();
+      const area = document.getElementById('cust-area').value;
+      const address = document.getElementById('cust-address').value.trim();
+      const slot = document.getElementById('cust-slot').value;
+
+      if (!name || !address) {
+        alert("Please enter your name and society/building address.");
+        return;
+      }
+
+      let items = [];
+      document.querySelectorAll('#rate-list input').forEach(input => {
+        const kg = parseFloat(input.value) || 0;
+        if (kg > 0) items.push(`- ${input.dataset.name}: ~${kg} kg`);
+      });
+
+      const itemsText = items.length ? items.join("\n") : "- Mixed Paper/Plastic (To be weighed on spot)";
+      const estAmt = document.getElementById('total-amt').innerText;
+
+      const msg = `*New BhangarSetu Pickup Request*\n\n` +
+                  `*Name:* ${name}\n` +
+                  `*Area:* ${area}\n` +
+                  `*Address:* ${address}\n` +
+                  `*Slot:* ${slot}\n\n` +
+                  `*Estimated Items:*\n${itemsText}\n` +
+                  `*Est. Value:* ₹${estAmt}`;
+
+      window.open(`https://wa.me{WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
