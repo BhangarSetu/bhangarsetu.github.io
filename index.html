@@ -135,7 +135,8 @@
       document.getElementById('total-amt').innerText = Math.round(totalAmt);
     }
 
-    function bookWhatsApp() {
+    function bookWhatsApp()
+        function bookWhatsApp() {
       const name = document.getElementById('cust-name').value.trim();
       const area = document.getElementById('cust-area').value;
       const address = document.getElementById('cust-address').value.trim();
@@ -155,15 +156,16 @@
       const itemsText = items.length ? items.join("\n") : "- Mixed Paper/Plastic (To be weighed on spot)";
       const estAmt = document.getElementById('total-amt').innerText;
 
-      const msg = `*New BhangarSetu Pickup Request*\n\n` +
-                  `*Name:* ${name}\n` +
-                  `*Area:* ${area}\n` +
-                  `*Address:* ${address}\n` +
-                  `*Slot:* ${slot}\n\n` +
-                  `*Estimated Items:*\n${itemsText}\n` +
-                  `*Est. Value:* ₹${estAmt}`;
+      const query = new URLSearchParams({
+        name: name,
+        area: area,
+        address: address,
+        slot: slot,
+        items: itemsText,
+        amt: estAmt
+      }).toString();
 
-      window.open(`https://wa.me{WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+      window.location.href = `thankyou.html?${query}`;
     }
   </script>
 </body>
